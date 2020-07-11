@@ -1,0 +1,22 @@
+<section>
+    <div class="button-row">
+      <button mat-raised-button (click)="addBus()">Bus</button>
+      <button mat-raised-button color="primary" (click)="addBranch()">Branch</button>
+      <button mat-raised-button color="accent">Gen</button>
+      <button mat-raised-button color="warn">Load</button>
+    </div>
+  </section>
+
+<svg class="shapeCanvas">
+    <ng-container *ngFor="let shape of shapesToDraw">
+    <rect class="shape" *ngIf="shape.type=='bus'" 
+        [style.stroke-width]="1"
+        [attr.x]="shape.x" 
+        [attr.y]="shape.y" 
+        [attr.width]="shape.w"
+        [attr.height]="shape.h"
+        [attr.rx]="8"   
+    >
+    </rect> 
+    </ng-container>
+</svg>

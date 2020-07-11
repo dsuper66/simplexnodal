@@ -1,0 +1,26 @@
+
+.shapeCanvas{
+    height:80vh;
+    width: 80vw;
+    border:solid;
+    border-color:lightgrey;
+    overflow: none;  
+    margin: 0px;
+    touch-action: none;
+ }
+ 
+ .shape{
+   fill-opacity:1;
+   stroke:black;
+   fill:black;
+   stroke-width:1;
+ }
+
+.button-row {
+    display: table-cell;
+}
+  
+  .button-row button {
+    display: table-cell;
+    margin: 6px;
+  }
