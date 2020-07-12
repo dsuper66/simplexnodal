@@ -1,14 +1,14 @@
 <section>
     <div class="button-row">
       <button mat-raised-button (click)="addBus()">Bus</button>
-      <button mat-raised-button color="primary" (click)="addBranch()">Branch</button>
-      <button mat-raised-button color="accent">Gen</button>
-      <button mat-raised-button color="warn">Load</button>
+      <button mat-raised-button (click)="addBranch()">Branch</button>
+      <button mat-raised-button (click)="addGen()">Gen</button>
+      <button mat-raised-button >Load</button>
     </div>
   </section>
 
 <svg class="shapeCanvas">
-    <ng-container *ngFor="let shape of shapesToDraw">
+  <ng-container *ngFor="let shape of shapesToDraw">
     <rect class="shape" *ngIf="shape.type=='bus' || shape.type=='branch'" 
         [style.stroke-width]="1"
         [attr.x]="shape.x" 
@@ -16,7 +16,13 @@
         [attr.width]="shape.w"
         [attr.height]="shape.h"
         [attr.rx]="8"   
-    >
-    </rect> 
-    </ng-container>
+    ></rect> 
+    <svg class="shape" *ngIf="shape.type=='gen'" 
+      height="400" width="450">
+      <path d="M 10 30 q 10 -20 20 0"
+      stroke-width="2" fill="none" />
+      <path d="M 30 30 q 10 20 20 0"
+      stroke-width="2" fill="none" />      
+    </svg>
+  </ng-container>
 </svg>

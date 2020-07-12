@@ -24,5 +24,9 @@ export class NetworkBuilderViewComponent implements OnInit {
   addBranch() {
     this.shapeService.addShape('branch');
     this.shapesToDraw = this.shapeService.getShapes();
-  }  
+  }
+  addGen() {
+    this.shapeService.addShape('gen');
+    this.shapesToDraw = this.shapeService.getShapes();
+  }    
 }
