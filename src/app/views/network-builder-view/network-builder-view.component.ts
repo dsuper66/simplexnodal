@@ -17,12 +17,12 @@ export class NetworkBuilderViewComponent implements OnInit {
 
   //Add ElementShapes
   addBus() {
-    console.log("Add bus"); 
     this.shapeService.addShape('bus');
     this.shapesToDraw = this.shapeService.getShapes();
     //this.shapesToDraw.push(newBus);
   }
   addBranch() {
-    console.log("Add branch"); 
+    this.shapeService.addShape('branch');
+    this.shapesToDraw = this.shapeService.getShapes();
   }  
 }
