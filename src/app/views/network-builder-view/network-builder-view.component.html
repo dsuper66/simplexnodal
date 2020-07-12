@@ -9,7 +9,7 @@
 
 <svg class="shapeCanvas">
     <ng-container *ngFor="let shape of shapesToDraw">
-    <rect class="shape"
+    <rect class="shape" *ngIf="shape.type=='bus' || shape.type=='branch'" 
         [style.stroke-width]="1"
         [attr.x]="shape.x" 
         [attr.y]="shape.y" 
