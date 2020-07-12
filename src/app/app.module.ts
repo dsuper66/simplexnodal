@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 
 // import the feature module here so you can add it to the imports array below
 import {ViewsModule} from './views/views.module';
+import {ModelModule} from './model/model.module';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,9 @@ import {ViewsModule} from './views/views.module';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    ViewsModule // add the feature module here
+    // add the feature modules here
+    ViewsModule,
+    ModelModule 
   ],
   providers: [],
   bootstrap: [AppComponent]

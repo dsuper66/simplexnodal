@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Shape } from '../shape';
+import { ShapeService } from '../shape.service';
 
 @Component({
   selector: 'app-network-builder-view',
@@ -8,7 +9,7 @@ import { Shape } from '../shape';
 })
 export class NetworkBuilderViewComponent implements OnInit {
 
-  constructor() { }
+  constructor(private shapeService: ShapeService) { }
   ngOnInit(): void {
   }
 
@@ -17,14 +18,9 @@ export class NetworkBuilderViewComponent implements OnInit {
   //Add ElementShapes
   addBus() {
     console.log("Add bus"); 
-    let newBus = {
-      type: 'bus',
-      x: 50,
-      y: 100,
-      w: 120,
-      h: 20
-    };
-    this.shapesToDraw.push(newBus);
+    this.shapeService.addShape('bus');
+    this.shapesToDraw = this.shapeService.getShapes();
+    //this.shapesToDraw.push(newBus);
   }
   addBranch() {
     console.log("Add branch"); 
