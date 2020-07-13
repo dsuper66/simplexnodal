@@ -7,14 +7,20 @@
     overflow: none;  
     margin: 0px;
     touch-action: none;
- }
+}
  
  .shape{
    fill-opacity:1;
    stroke:black;
    fill:black;
-   stroke-width:1;
- }
+   stroke-width:1;  
+}
+
+.path{
+  stroke-width:2;
+  stroke:black;
+  fill:none;
+}
 
 .button-row {
     display: table-cell;

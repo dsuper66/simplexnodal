@@ -15,18 +15,10 @@ export class NetworkBuilderViewComponent implements OnInit {
 
   shapesToDraw: Shape[] = [];
 
-  //Add ElementShapes
-  addBus() {
-    this.shapeService.addShape('bus');
-    this.shapesToDraw = this.shapeService.getShapes();
-    //this.shapesToDraw.push(newBus);
-  }
-  addBranch() {
-    this.shapeService.addShape('branch');
-    this.shapesToDraw = this.shapeService.getShapes();
-  }
-  addGen() {
-    this.shapeService.addShape('gen');
-    this.shapesToDraw = this.shapeService.getShapes();
-  }    
+  //Add Element
+  addElement(type: string) {
+    console.log("add element:" + type);
+    this.shapeService.addShape(type);
+    this.shapesToDraw = this.shapeService.getShapes(); 
+  }     
 }

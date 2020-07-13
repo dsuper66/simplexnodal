@@ -1,28 +1,33 @@
 <section>
     <div class="button-row">
-      <button mat-raised-button (click)="addBus()">Bus</button>
-      <button mat-raised-button (click)="addBranch()">Branch</button>
-      <button mat-raised-button (click)="addGen()">Gen</button>
-      <button mat-raised-button >Load</button>
+      <button mat-raised-button (click)="addElement('bus')">Bus</button>
+      <button mat-raised-button (click)="addElement('branch')">Branch</button>
+      <button mat-raised-button (click)="addElement('gen')">Gen</button>
+      <button mat-raised-button (click)="addElement('load')">Load</button>
     </div>
   </section>
 
 <svg class="shapeCanvas">
   <ng-container *ngFor="let shape of shapesToDraw">
     <rect class="shape" *ngIf="shape.type=='bus' || shape.type=='branch'" 
-        [style.stroke-width]="1"
         [attr.x]="shape.x" 
         [attr.y]="shape.y" 
         [attr.width]="shape.w"
         [attr.height]="shape.h"
         [attr.rx]="8"   
     ></rect> 
-    <svg class="shape" *ngIf="shape.type=='gen'" 
-      height="400" width="450">
-      <path d="M 10 30 q 10 -20 20 0"
-      stroke-width="2" fill="none" />
-      <path d="M 30 30 q 10 20 20 0"
-      stroke-width="2" fill="none" />      
+    <svg class="path" *ngIf="shape.type=='gen'">
+      <svg      
+      [attr.height]="shape.height" 
+      [attr.width]="shape.width"
+      [attr.x]="shape.x" 
+      [attr.y]="shape.y"> 
+      <path [attr.d]="shape.path1"/>
+      <path [attr.d]="shape.path2"/>
+      <!--
+      <path d="M 110 100 q 7.5 -15 15 0"  stroke="green" stroke-width="2" fill="none" />
+      <path d="M 125 100 q 7.5 15 15 0"  stroke="green" stroke-width="2" fill="none" /> -->
+      </svg>  
     </svg>
   </ng-container>
 </svg>
