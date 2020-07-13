@@ -18,10 +18,10 @@
     ></rect> 
     <svg class="path" *ngIf="shape.type=='gen'">
       <svg      
-      [attr.height]="shape.height" 
-      [attr.width]="shape.width"
-      [attr.x]="shape.x" 
-      [attr.y]="shape.y"> 
+      [attr.height]="200" 
+      [attr.width]="200"
+      [attr.x]="0" 
+      [attr.y]="0"> 
       <path [attr.d]="shape.path1"/>
       <path [attr.d]="shape.path2"/>
       <!--

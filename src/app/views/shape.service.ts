@@ -50,7 +50,7 @@ export class ShapeService {
       let h = this.genLength;
       let w = h/2;
       let x = this.busInitX + this.busLength/2;
-      let y = this.busInitY;
+      let y = this.busInitY - this.genLength/2;
 
     /*
       d="M 10 30 q 10 -20 20 0"/>

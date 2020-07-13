@@ -13,13 +13,15 @@
    fill-opacity:1;
    stroke:black;
    fill:black;
-   stroke-width:1;  
+   stroke-width:2;
+   margin: 0px;
 }
 
 .path{
   stroke-width:2;
   stroke:black;
   fill:none;
+  margin: 0px;
 }
 
 .button-row {
