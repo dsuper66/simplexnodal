@@ -18,7 +18,7 @@ export class ShapeService {
   busLength = 120;
   busThick = 14;
 
-  genLength = 60;
+  genLength = 50;
   genWidth = 30;
 
   addShape(type: string) {

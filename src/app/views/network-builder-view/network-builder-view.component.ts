@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Shape } from '../shape';
+import { Point } from '../point';
 import { ShapeService } from '../shape.service';
 
 @Component({
@@ -26,28 +27,7 @@ export class NetworkBuilderViewComponent implements OnInit {
   }     
 
   //Adjust
-  startDrawing(evt: MouseEvent) { 
-    //Check if inside a shape then this is adjusting
-    this.checkIfPointIsInAnyShape(evt.offsetX, evt.offsetY)
-  }
-
-  keepDrawing(evt: MouseEvent) {
-    let deltaX = evt.x - this.startX;
-    let deltaY = evt.y - this.startY;
-    if (this.selectedShape){
-      this.selectedShape.x += deltaX;
-      this.selectedShape.y += deltaY;
-    }
-    this.startX = evt.x;
-    this.startY = evt.y;
-  }
-
-  stopDrawing(evt: MouseEvent) {
-    this.selectedShape = null;
-    this.startX = 0;
-    this.startY = 0;
-  }
-
+  //Check if inside a shape then this is adjusting
   checkIfPointIsInAnyShape(x: number, y: number){
     for (let thisShape of this.shapesToDraw) {
       console.log (thisShape.x);
@@ -57,9 +37,41 @@ export class NetworkBuilderViewComponent implements OnInit {
       && y < thisShape.y + thisShape.h) {
         //set a non-null createdShape to indicate we are adjusting
         this.selectedShape = thisShape;
-        this.startX = x;
-        this.startY = y;
       }
     }    
+  }
+  startDrawingMouse(evt: MouseEvent) { 
+    this.checkIfPointIsInAnyShape(evt.offsetX, evt.offsetY)
+  }
+  startDrawinTouch(evt: MouseEvent) { 
+    this.checkIfPointIsInAnyShape(evt.offsetX, evt.offsetY)
+  }
+
+  keepDrawing(point: Point) {
+    if (this.selectedShape){
+      this.selectedShape.x += (point.x - this.startX);
+      this.selectedShape.y += (point.y - this.startY);
+    }
+    this.startX = point.x;
+    this.startY = point.y;    
+  }
+  keepDrawingMouse(evt: MouseEvent) {
+    this.keepDrawing({x: evt.x, y: evt.y});
+  }
+  keepDrawingTouch(evt: TouchEvent) {
+    this.keepDrawing({x: evt.touches[0].pageX, y: evt.touches[0].pageY});
   }  
+
+  stopDrawing(){
+    this.selectedShape = null;
+    this.startX = 0;
+    this.startY = 0;
+  }
+  stopDrawingMouse() {
+    this.stopDrawing();
+  }
+  stopDrawingTouch() {
+    this.stopDrawing();
+  }  
+  
 }
