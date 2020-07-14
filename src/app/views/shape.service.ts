@@ -19,6 +19,7 @@ export class ShapeService {
   busThick = 14;
 
   genLength = 60;
+  genWidth = 30;
 
   addShape(type: string) {
     let count = this.shapes.filter(shape => shape.type == type).length;
@@ -48,16 +49,16 @@ export class ShapeService {
     }
     else if (type == 'gen') {      
       let h = this.genLength;
-      let w = h/2;
-      let x = this.busInitX + this.busLength/2;
-      let y = this.busInitY - this.genLength/2;
+      let w = this.genWidth;
+      let x = this.busInitX + this.busLength/2 - w/2;
+      let y = this.busInitY - h;
+  
+      let sineStartX = 6;
+      let sineStartY = w/2;
+      let sineW = w - 2*sineStartX;
 
-    /*
-      d="M 10 30 q 10 -20 20 0"/>
-      <path class="path"
-      d="M 30 30 q 10 20 20 0"/>  */
-      let path1 = `M ${x} ${y} q ${w/4} ${-w/2} ${w/2} 0` 
-      let path2 = `M ${x + w/2} ${y} q ${w/4} ${w/2} ${w/2} 0` 
+      let path1 = `M ${sineStartX} ${sineStartY}           q ${sineW/4} ${-sineW/2} ${sineW/2} 0` 
+      let path2 = `M ${sineStartX + sineW/2} ${sineStartY} q ${sineW/4} ${sineW/2}  ${sineW/2} 0` 
       console.log("path1: " + path1 + " path2: " + path2);
       this.shapes.push({
         type: type,

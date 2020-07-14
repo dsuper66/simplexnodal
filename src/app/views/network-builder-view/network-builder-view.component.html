@@ -17,16 +17,17 @@
         [attr.rx]="8"   
     ></rect> 
     <svg class="path" *ngIf="shape.type=='gen'">
+
       <svg      
-      [attr.height]="200" 
-      [attr.width]="200"
-      [attr.x]="0" 
-      [attr.y]="0"> 
+      [attr.height]="shape.h" 
+      [attr.width]="shape.w"
+      [attr.x]="shape.x" 
+      [attr.y]="shape.y"> 
+      
+      <circle [attr.cx]="shape.w/2" [attr.cy]="shape.w/2" [attr.r]="shape.w/2 - 2"/>
       <path [attr.d]="shape.path1"/>
       <path [attr.d]="shape.path2"/>
-      <!--
-      <path d="M 110 100 q 7.5 -15 15 0"  stroke="green" stroke-width="2" fill="none" />
-      <path d="M 125 100 q 7.5 15 15 0"  stroke="green" stroke-width="2" fill="none" /> -->
+
       </svg>  
     </svg>
   </ng-container>
