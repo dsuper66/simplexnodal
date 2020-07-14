@@ -37,6 +37,7 @@ export class NetworkBuilderViewComponent implements OnInit {
       && y < thisShape.y + thisShape.h) {
         //set a non-null createdShape to indicate we are adjusting
         this.selectedShape = thisShape;
+        console.log("inside");
       }
     }    
   }
@@ -44,6 +45,7 @@ export class NetworkBuilderViewComponent implements OnInit {
     this.checkIfPointIsInAnyShape(evt.offsetX, evt.offsetY)
   }
   startDrawingTouch(evt: TouchEvent) { 
+    console.log("start touch");
     this.checkIfPointIsInAnyShape(evt.touches[0].pageX, evt.touches[0].pageY)
   }
 
@@ -59,10 +61,12 @@ export class NetworkBuilderViewComponent implements OnInit {
     this.keepDrawing({x: evt.x, y: evt.y});
   }
   keepDrawingTouch(evt: TouchEvent) {
+    console.log("keep drawing touch");
     this.keepDrawing({x: evt.touches[0].pageX, y: evt.touches[0].pageY});
   }  
 
   stopDrawing(){
+    console.log("stop drawing");
     this.selectedShape = null;
     this.startX = 0;
     this.startY = 0;
