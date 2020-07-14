@@ -1,13 +1,6 @@
 
 
-<section>
-    <div class="button-row">
-      <button mat-raised-button (click)="addElement('bus')">Bus</button>
-      <button mat-raised-button (click)="addElement('branch')">Branch</button>
-      <button mat-raised-button (click)="addElement('gen')">Gen</button>
-      <button mat-raised-button (click)="addElement('load')">Load</button>
-    </div>
-  </section>
+
 
 <svg class="shapeCanvas"
   (mousedown)="startDrawingMouse($event)" 
@@ -45,3 +38,12 @@
     </svg>
   </ng-container>
 </svg>
+
+<section>
+  <div class="button-row">
+    <button mat-raised-button (click)="addElement('bus')">Bus</button>
+    <button mat-raised-button (click)="addElement('branch')">Branch</button>
+    <button mat-raised-button (click)="addElement('gen')">Gen</button>
+    <button mat-raised-button (click)="addElement('load')">Load</button>
+  </div>
+</section>
