@@ -30,7 +30,7 @@ export class NetworkBuilderViewComponent implements OnInit {
   //Check if inside a shape then this is adjusting
   checkIfPointIsInAnyShape(x: number, y: number){
     for (let thisShape of this.shapesToDraw) {
-      console.log (thisShape.x);
+      //console.log (thisShape.x);
       if (x > thisShape.x 
       && x < thisShape.x + thisShape.w
       && y > thisShape.y
@@ -63,6 +63,7 @@ export class NetworkBuilderViewComponent implements OnInit {
   keepDrawingTouch(evt: TouchEvent) {
     console.log("keep drawing touch");
     this.keepDrawing({x: evt.touches[0].pageX, y: evt.touches[0].pageY});
+    this.checkIfPointIsInAnyShape(evt.touches[0].pageX, evt.touches[0].pageY)
   }  
 
   stopDrawing(){
