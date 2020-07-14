@@ -43,8 +43,8 @@ export class NetworkBuilderViewComponent implements OnInit {
   startDrawingMouse(evt: MouseEvent) { 
     this.checkIfPointIsInAnyShape(evt.offsetX, evt.offsetY)
   }
-  startDrawinTouch(evt: MouseEvent) { 
-    this.checkIfPointIsInAnyShape(evt.offsetX, evt.offsetY)
+  startDrawingTouch(evt: TouchEvent) { 
+    this.checkIfPointIsInAnyShape(evt.touches[0].pageX, evt.touches[0].pageY)
   }
 
   keepDrawing(point: Point) {
