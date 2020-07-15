@@ -1,4 +1,11 @@
 
+
+input {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    }
+
 .shapeCanvas{
     height:75vh;
     width: 75vw;
@@ -24,17 +31,12 @@
   margin: 0px;
 }
 
+
+
 .button-row {
-  touch-action: none;
   display: table-cell;
 }
   
-input {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  }
-
   .button-row button {
     display: table-cell;
     margin: 6px;
