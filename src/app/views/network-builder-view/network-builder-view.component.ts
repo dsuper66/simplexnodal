@@ -15,9 +15,8 @@ export class NetworkBuilderViewComponent implements OnInit {
   }
 
   shapesToDraw: Shape[] = [];
-  selectedShape : Shape;
-  startX = 0;
-  startY = 0;
+  selectedShape: Shape;
+  lastPoint: Point;
 
   //Add Element
   addElement(type: string) {
@@ -37,6 +36,7 @@ export class NetworkBuilderViewComponent implements OnInit {
       && y < thisShape.y + thisShape.h) {
         //set a non-null createdShape to indicate we are adjusting
         this.selectedShape = thisShape;
+        this.lastPoint = {x: x, y: y};
         console.log("inside");
       }
     }    
@@ -51,11 +51,10 @@ export class NetworkBuilderViewComponent implements OnInit {
 
   keepDrawing(point: Point) {
     if (this.selectedShape){
-      this.selectedShape.x += (point.x - this.startX);
-      this.selectedShape.y += (point.y - this.startY);
+      this.selectedShape.x += (point.x - this.lastPoint.x);
+      this.selectedShape.y += (point.y - this.lastPoint.y);
     }
-    this.startX = point.x;
-    this.startY = point.y;    
+    this.lastPoint = point;
   }
   keepDrawingMouse(evt: MouseEvent) {
     this.keepDrawing({x: evt.x, y: evt.y});
@@ -69,8 +68,7 @@ export class NetworkBuilderViewComponent implements OnInit {
   stopDrawing(){
     console.log("stop drawing");
     this.selectedShape = null;
-    this.startX = 0;
-    this.startY = 0;
+    this.lastPoint = null;
   }
   stopDrawingMouse() {
     this.stopDrawing();
