@@ -25,7 +25,11 @@
 }
 
 .button-row {
-    display: table-cell;
+  touch-action: none;
+  display: table-cell;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
 }
   
   .button-row button {
