@@ -30,15 +30,16 @@ export class NetworkBuilderViewComponent implements OnInit {
   checkIfPointIsInAnyShape(x: number, y: number){
     for (let thisShape of this.shapesToDraw) {
       //console.log (thisShape.x);
-      if (x > thisShape.x 
-      && x < thisShape.x + thisShape.w
-      && y > thisShape.y
-      && y < thisShape.y + thisShape.h) {
+      if (x >= thisShape.x 
+      && x <= thisShape.x + thisShape.w
+      && y >= thisShape.y
+      && y <= thisShape.y + thisShape.h) {
         //set a non-null createdShape to indicate we are adjusting
 
         this.selectedShape = thisShape;
         this.lastPoint = {x: x, y: y};
         console.log("inside");
+        break;
       }
     }    
   }
