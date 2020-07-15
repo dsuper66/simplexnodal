@@ -8,7 +8,6 @@
     border-color:lightgrey;
     overflow: none;  
     margin: 0px;
-    touch-action: none;
 }
  
  .shape{
@@ -34,13 +33,10 @@
         -ms-user-select: none; /* Internet Explorer/Edge */
             user-select: none; /* Non-prefixed version, currently
                                   supported by Chrome, Edge, Opera and Firefox */
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
+
 }
 
 .button-row {
-  user-select:none;
   display: table-cell;
 }
   

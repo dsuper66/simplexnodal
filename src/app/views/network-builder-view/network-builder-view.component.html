@@ -12,13 +12,18 @@
   >
 
   <ng-container *ngFor="let shape of shapesToDraw">
-    <rect class="shape" *ngIf="shape.type=='bus' || shape.type=='branch'" 
+    <svg *ngIf="shape.type=='bus' || shape.type=='branch'" >
+
+      <!--Selected-->
+      
+      <rect 
         [attr.x]="shape.x" 
         [attr.y]="shape.y" 
         [attr.width]="shape.w"
         [attr.height]="shape.h"
-        [attr.rx]="8"   
-    ></rect> 
+        [attr.rx]="8" /> 
+    </svg>
+
     <svg class="path" *ngIf="shape.type=='gen'">
 
       <svg      
@@ -26,13 +31,19 @@
       [attr.width]="shape.w"
       [attr.x]="shape.x" 
       [attr.y]="shape.y"> 
+
+      <!--Selected-->
+      <rect [attr.stroke-width]="1" 
+            [attr.width]="shape.w - 2" [attr.height]="shape.h - 2"/>
       
-      <!--For a strok width of 3-->
+      <!--For a stroke width of 3-->
       <circle [attr.cx]="shape.w/2" [attr.cy]="shape.w/2" [attr.r]="shape.w/2 - 3/2"/>
       <line [attr.x1]="shape.w/2" [attr.y1]="shape.w - 3"
             [attr.x2]="shape.w/2" [attr.y2]="shape.h"/>
       <path [attr.d]="shape.path1"/>
       <path [attr.d]="shape.path2"/>
+
+ 
 
       </svg>  
     </svg>
