@@ -52,11 +52,11 @@ export class NetworkBuilderViewComponent implements OnInit {
   }
 
   keepDrawing(point: Point) {
-    if (this.selectedShape){
+    if (this.lastPoint){
       this.selectedShape.x += (point.x - this.lastPoint.x);
       this.selectedShape.y += (point.y - this.lastPoint.y);
+      this.lastPoint = point;
     }
-    this.lastPoint = point;
   }
   keepDrawingMouse(evt: MouseEvent) {
     this.keepDrawing({x: evt.x, y: evt.y});
@@ -69,7 +69,7 @@ export class NetworkBuilderViewComponent implements OnInit {
 
   stopDrawing(){
     console.log("stop drawing");
-    this.selectedShape = null;
+    //this.selectedShape = null;
     this.lastPoint = null;
   }
   stopDrawingMouse() {

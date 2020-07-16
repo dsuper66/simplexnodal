@@ -11,15 +11,17 @@ export class ShapeService {
   private shapes:Shape[]=[];
 
   branchLength = 100;
-  branchThick = 5;
+  branchWidth = 5;
 
   busInitX = 50;
   busInitY = 100;
   busLength = 120;
-  busThick = 14;
+  busWidth = 14;
 
   genLength = 50;
   genWidth = 30;
+
+  fullWidth = 40;
 
   addShape(type: string) {
     let count = this.shapes.filter(shape => shape.type == type).length;
@@ -31,20 +33,22 @@ export class ShapeService {
         x: this.busInitX,
         y: this.busInitY * (1 + this.getCount('bus')),
         w: this.busLength,
-        h: this.busThick
-      })
+        h: this.busWidth,
+        fullWidth: this.fullWidth
+       })
     }
     else if (type == 'branch') {
       var x = this.busInitX + 0.2*this.busLength; 
       if (this.getCount('branch') == 1) {
-        x = this.busInitX + 0.8*this.busLength - this.branchThick
+        x = this.busInitX + 0.8*this.busLength - this.branchWidth
       };
       this.shapes.push({
         type: type,
         x: x,
-        y: this.busInitY + this.busThick/2,
-        w: this.branchThick,
-        h: this.branchLength
+        y: this.busInitY + this.busWidth/2,
+        w: this.branchWidth,
+        h: this.branchLength,
+        fullWidth: this.fullWidth
       })
     }
     else if (type == 'gen') {      
@@ -66,6 +70,7 @@ export class ShapeService {
         y: y,
         w: w,
         h: h,
+        fullWidth: this.fullWidth,
         path1,
         path2
       })

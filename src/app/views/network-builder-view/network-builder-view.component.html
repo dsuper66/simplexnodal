@@ -12,10 +12,18 @@
   >
 
   <ng-container *ngFor="let shape of shapesToDraw">
+
+    <!--Branch or Bus-->
     <svg *ngIf="shape.type=='bus' || shape.type=='branch'" >
 
       <!--Selected-->
-      
+      <svg *ngIf="shape==(selectedShape)"   class="selected"
+      [attr.height]="shape.h" [attr.width]="shape.fullWidth"
+      [attr.x]="shape.x" [attr.y]="shape.y"> 
+        <rect [attr.stroke-width]="1" 
+        [attr.width]="shape.fullWidth" [attr.height]="shape.h"/>
+      </svg>
+
       <rect 
         [attr.x]="shape.x" 
         [attr.y]="shape.y" 
@@ -24,17 +32,19 @@
         [attr.rx]="8" /> 
     </svg>
 
+    <!--Gen-->
     <svg class="path" *ngIf="shape.type=='gen'">
 
-      <svg      
-      [attr.height]="shape.h" 
-      [attr.width]="shape.w"
-      [attr.x]="shape.x" 
-      [attr.y]="shape.y"> 
-
       <!--Selected-->
-      <rect [attr.stroke-width]="1" 
-            [attr.width]="shape.w - 2" [attr.height]="shape.h - 2"/>
+      <svg *ngIf="shape==(selectedShape)" class="selected" 
+      [attr.height]="shape.h" [attr.width]="shape.fullWidth"
+      [attr.x]="shape.x" [attr.y]="shape.y"> 
+        <rect [attr.width]="shape.fullWidth" [attr.height]="shape.h"/>
+      </svg>
+
+      <svg      
+      [attr.height]="shape.h" [attr.width]="shape.w"
+      [attr.x]="shape.x + (shape.fullWidth - shape.w)/2" [attr.y]="shape.y"> 
       
       <!--For a stroke width of 3-->
       <circle [attr.cx]="shape.w/2" [attr.cy]="shape.w/2" [attr.r]="shape.w/2 - 3/2"/>

@@ -10,6 +10,13 @@
     margin: 0px;
 }
  
+.selected{
+  fill:none;
+  stroke:black;
+  stroke-width:2;
+  margin: 0px;
+}
+
  .shape{
    fill-opacity:1;
    stroke:black;
