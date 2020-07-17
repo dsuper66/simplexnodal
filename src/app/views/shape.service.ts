@@ -21,20 +21,24 @@ export class ShapeService {
   genLength = 50;
   genWidth = 30;
 
-  fullWidth = 40;
+  selectWidth = 40;
 
   addShape(type: string) {
     let count = this.shapes.filter(shape => shape.type == type).length;
     console.log (type + ":" + (this.getCount(type) + 1));
 
     if (type == 'bus') {
+      let y = this.busInitY * (1 + this.getCount('bus'));
       this.shapes.push({
         type: type,
-        x: this.busInitX,
-        y: this.busInitY * (1 + this.getCount('bus')),
-        w: this.busLength,
-        h: this.busWidth,
-        fullWidth: this.fullWidth
+        xInner: this.busInitX,
+        yInner: y,
+        wInner: this.busLength,
+        hInner: this.busWidth,
+        xOuter: this.busInitX,
+        yOuter: y - (this.selectWidth - this.busWidth)/2,
+        wOuter: this.busLength,
+        hOuter: this.selectWidth
        })
     }
     else if (type == 'branch') {
@@ -42,13 +46,17 @@ export class ShapeService {
       if (this.getCount('branch') == 1) {
         x = this.busInitX + 0.8*this.busLength - this.branchWidth
       };
+      let y = this.busInitY + this.busWidth/2;
       this.shapes.push({
         type: type,
-        x: x,
-        y: this.busInitY + this.busWidth/2,
-        w: this.branchWidth,
-        h: this.branchLength,
-        fullWidth: this.fullWidth
+        xInner: x,
+        yInner: y,
+        wInner: this.branchWidth,
+        hInner: this.branchLength,
+        xOuter: x - (this.selectWidth - this.branchWidth)/2,
+        yOuter: y,
+        wOuter: this.selectWidth,
+        hOuter: this.branchLength
       })
     }
     else if (type == 'gen') {      
@@ -66,11 +74,14 @@ export class ShapeService {
       console.log("path1: " + path1 + " path2: " + path2);
       this.shapes.push({
         type: type,
-        x: x,
-        y: y,
-        w: w,
-        h: h,
-        fullWidth: this.fullWidth,
+        xInner: x,
+        yInner: y,
+        wInner: w,
+        hInner: h,
+        xOuter: x - (this.selectWidth - w)/2,
+        yOuter: y,
+        wOuter: this.selectWidth,
+        hOuter: h,
         path1,
         path2
       })

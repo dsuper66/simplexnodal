@@ -1,10 +1,13 @@
 export class Shape {
     type: string;
-    x:number;
-    y:number;
-    w:number;
-    h:number;
-    fullWidth:number;
+    xInner:number;
+    yInner:number;
+    wInner:number;
+    hInner:number;
     path1?:string;
-    path2?:string;
+    path2?:string;    
+    xOuter?:number;
+    yOuter?:number;
+    wOuter?:number;
+    hOuter?:number;
   }

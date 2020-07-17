@@ -18,17 +18,17 @@
 
       <!--Selected-->
       <svg *ngIf="shape==(selectedShape)"   class="selected"
-      [attr.height]="shape.h" [attr.width]="shape.fullWidth"
-      [attr.x]="shape.x" [attr.y]="shape.y"> 
-        <rect [attr.stroke-width]="1" 
-        [attr.width]="shape.fullWidth" [attr.height]="shape.h"/>
+      [attr.height]="shape.hOuter" [attr.width]="shape.wOuter"
+      [attr.x]="shape.xOuter" [attr.y]="shape.yOuter"> 
+      <rect [attr.stroke-width]="1" 
+        [attr.width]="shape.wOuter" [attr.height]="shape.hOuter"/>
       </svg>
 
       <rect 
-        [attr.x]="shape.x" 
-        [attr.y]="shape.y" 
-        [attr.width]="shape.w"
-        [attr.height]="shape.h"
+        [attr.x]="shape.xInner" 
+        [attr.y]="shape.yInner" 
+        [attr.width]="shape.wInner"
+        [attr.height]="shape.hInner"
         [attr.rx]="8" /> 
     </svg>
 
@@ -37,19 +37,19 @@
 
       <!--Selected-->
       <svg *ngIf="shape==(selectedShape)" class="selected" 
-      [attr.height]="shape.h" [attr.width]="shape.fullWidth"
-      [attr.x]="shape.x" [attr.y]="shape.y"> 
-        <rect [attr.width]="shape.fullWidth" [attr.height]="shape.h"/>
+      [attr.height]="shape.hOuter" [attr.width]="shape.wOuter"
+      [attr.x]="shape.xOuter" [attr.y]="shape.yOuter"> 
+        <rect [attr.width]="shape.wOuter" [attr.height]="shape.hOuter"/>
       </svg>
 
       <svg      
-      [attr.height]="shape.h" [attr.width]="shape.w"
-      [attr.x]="shape.x + (shape.fullWidth - shape.w)/2" [attr.y]="shape.y"> 
+      [attr.height]="shape.hInner" [attr.width]="shape.wInner"
+      [attr.x]="shape.xInner" [attr.y]="shape.yInner"> 
       
       <!--For a stroke width of 3-->
-      <circle [attr.cx]="shape.w/2" [attr.cy]="shape.w/2" [attr.r]="shape.w/2 - 3/2"/>
-      <line [attr.x1]="shape.w/2" [attr.y1]="shape.w - 3"
-            [attr.x2]="shape.w/2" [attr.y2]="shape.h"/>
+      <circle [attr.cx]="shape.wInner/2" [attr.cy]="shape.wInner/2" [attr.r]="shape.wInner/2 - 3/2"/>
+      <line [attr.x1]="shape.wInner/2" [attr.y1]="shape.wInner - 3"
+            [attr.x2]="shape.wInner/2" [attr.y2]="shape.hInner"/>
       <path [attr.d]="shape.path1"/>
       <path [attr.d]="shape.path2"/>
 
