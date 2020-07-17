@@ -53,8 +53,12 @@ export class NetworkBuilderViewComponent implements OnInit {
 
   keepDrawing(point: Point) {
     if (this.lastPoint){
-      this.selectedShape.xInner += (point.x - this.lastPoint.x);
-      this.selectedShape.yInner += (point.y - this.lastPoint.y);
+      let deltaX = point.x - this.lastPoint.x;
+      let deltaY = point.y - this.lastPoint.y;
+      this.selectedShape.xInner += deltaX;
+      this.selectedShape.yInner += deltaY;
+      this.selectedShape.xOuter += deltaX;
+      this.selectedShape.yOuter += deltaY;      
       this.lastPoint = point;
     }
   }
