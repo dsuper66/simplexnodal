@@ -28,6 +28,7 @@ export class NetworkBuilderViewComponent implements OnInit {
   //Adjust
   //Check if inside a shape then this is adjusting
   checkIfPointIsInAnyShape(x: number, y: number){
+    var foundShape = false;
     for (let thisShape of this.shapesToDraw) {
       //console.log (thisShape.x);
       if (x >= thisShape.xOuter 
@@ -39,9 +40,16 @@ export class NetworkBuilderViewComponent implements OnInit {
         this.selectedShape = thisShape;
         this.lastPoint = {x: x, y: y};
         console.log("inside");
+        foundShape = true;
         break;
       }
-    }    
+    }
+    //Not in any shape, reset select
+    if (!foundShape) {
+      this.lastPoint = null;  
+      this.selectedShape = null;
+      this.shapesToDraw = this.shapeService.getShapes(); 
+    }
   }
   startDrawingMouse(evt: MouseEvent) { 
     this.checkIfPointIsInAnyShape(evt.offsetX, evt.offsetY)
