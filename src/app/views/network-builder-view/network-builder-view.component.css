@@ -8,7 +8,8 @@
     border-color:lightgrey;
     overflow: none;  
     margin: 0px;
-    touch-action: none;
+    /*stop scroll within canvas but keep zoom*/
+    overflow: hidden;
 }
  
 .selected{

@@ -3,11 +3,13 @@ export class Shape {
     xInner:number;
     yInner:number;
     wInner:number;
-    hInner:number;
-    path1?:string;
-    path2?:string;    
+    hInner:number;   
     xOuter?:number;
     yOuter?:number;
     wOuter?:number;
     hOuter?:number;
+    path1?:string;
+    path2?:string; 
+    doMove? = false;
+    doResize? = false;
   }

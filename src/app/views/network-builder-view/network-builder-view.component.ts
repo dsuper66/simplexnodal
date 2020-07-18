@@ -16,7 +16,10 @@ export class NetworkBuilderViewComponent implements OnInit {
 
   shapesToDraw: Shape[] = [];
   selectedShape: Shape;
-  lastPoint: Point;
+  lastPoint: Point; //For calculating delta as move progresses  
+  //For checks at start of move
+  firstPoint: Point; 
+  directionDone = false;
 
   //Add Element
   addElement(type: string) {
@@ -38,9 +41,11 @@ export class NetworkBuilderViewComponent implements OnInit {
         //set a non-null createdShape to indicate we are adjusting
 
         this.selectedShape = thisShape;
-        this.lastPoint = {x: x, y: y};
+        this.firstPoint = {x: x, y: y};
+        this.lastPoint = this.firstPoint;
         console.log("inside");
         foundShape = true;
+        this.directionDone = false;
         break;
       }
     }
@@ -61,17 +66,47 @@ export class NetworkBuilderViewComponent implements OnInit {
 
   keepDrawing(point: Point) {
     if (this.lastPoint){
+
+      //Start direction
+      let xThreshold = 15;
+      let yThreshold = 10;
+      let deltaFromStartX = Math.abs(point.x - this.firstPoint.x);
+      let deltaFromStartY = Math.abs(point.y - this.firstPoint.y);
+      if (!this.directionDone) {
+        if (deltaFromStartX > xThreshold || deltaFromStartY > yThreshold) {
+          if (deltaFromStartY > yThreshold) {
+            console.log ("Up Down");
+            this.selectedShape.doMove = true;
+            this.selectedShape.doResize = false;
+          }
+          else {
+            console.log ("Left Right");
+            this.selectedShape.doResize = true;
+            this.selectedShape.doMove = false;
+          }
+          this.directionDone = true;
+        }        
+      }
+
+      //Adjust
       let deltaX = point.x - this.lastPoint.x;
       let deltaY = point.y - this.lastPoint.y;
-      this.selectedShape.xInner += deltaX;
-      this.selectedShape.yInner += deltaY;
-      this.selectedShape.xOuter += deltaX;
-      this.selectedShape.yOuter += deltaY;      
+      
+      if (this.selectedShape.type == 'bus' && this.selectedShape.doResize) {
+
+      }
+      else { //move
+        this.selectedShape.xInner += deltaX;
+        this.selectedShape.yInner += deltaY;
+        this.selectedShape.xOuter += deltaX;
+        this.selectedShape.yOuter += deltaY;  
+      }
+
       this.lastPoint = point;
     }
   }
   keepDrawingMouse(evt: MouseEvent) {
-    this.keepDrawing({x: evt.x, y: evt.y});
+    this.keepDrawing({x: evt.offsetX, y: evt.offsetY});
   }
   keepDrawingTouch(evt: TouchEvent) {
     console.log("keep drawing touch");
@@ -83,6 +118,7 @@ export class NetworkBuilderViewComponent implements OnInit {
     console.log("stop drawing");
     //this.selectedShape = null;
     this.lastPoint = null;
+    this.directionDone = false;
   }
   stopDrawingMouse() {
     this.stopDrawing();
