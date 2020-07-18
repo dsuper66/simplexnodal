@@ -18,8 +18,8 @@ export class ShapeService {
   busLength = 120;
   busWidth = 14;
 
-  genLength = 50;
-  genWidth = 30;
+  genLoadLength = 42;
+  genLoadWidth = 30;
 
   selectWidth = 40;
 
@@ -44,11 +44,15 @@ export class ShapeService {
     }
     //BRANCH
     else if (type == 'branch') {
-      var x = this.busInitX + 0.2*this.busLength; 
-      if (this.getCount('branch') == 1) {
+      let branchCountNew = this.getCount('branch') + 1;
+      var x = 0;
+      if (branchCountNew%2 == 1) {
+        x = this.busInitX + 0.2*this.busLength; 
+      }
+      else {
         x = this.busInitX + 0.8*this.busLength - this.branchWidth
       };
-      let y = this.busInitY + this.busWidth/2;
+      let y = (this.busInitY * Math.ceil(branchCountNew/2)) + this.busWidth/2;
       this.shapes.push({
         type: type,
         xInner: x,
@@ -62,11 +66,12 @@ export class ShapeService {
       })
     }
     //GEN & LOAD
-    else if (type == 'gen' || type == 'load') {      
-      let h = this.genLength;
-      let w = this.genWidth;
+    else if (type == 'gen' || type == 'load') {     
+      let genLoadCount =  this.getCount('gen') + this.getCount('load')
+      let h = this.genLoadLength;
+      let w = this.genLoadWidth;
       let x = this.busInitX + this.busLength/2 - w/2;
-      let y = (this.busInitY * (1 + this.getCount('bus'))) - h;
+      let y = (this.busInitY * (1 + genLoadCount)) - h;
       var path1: string;
       var path2: string;
       if (type == 'gen') {
