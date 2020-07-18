@@ -12,4 +12,4 @@ export class Shape {
     path2?:string; 
     doMove? = false;
     doResize? = false;
-  }
+}

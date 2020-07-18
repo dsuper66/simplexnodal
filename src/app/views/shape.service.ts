@@ -111,5 +111,22 @@ export class ShapeService {
     console.log("get shapes");
     return this.shapes;
   }
+
+  applyDeltaX(deltaX: number, shape: Shape) {
+    shape.xInner += deltaX;
+    shape.xOuter += deltaX;
+  }
+  applyDeltaY(deltaY: number, shape: Shape) {
+    shape.yInner += deltaY;
+    shape.yOuter += deltaY;
+  }
+  applyDeltaW(deltaX: number, shape: Shape) {
+    shape.wInner += deltaX;
+    shape.wOuter += deltaX;
+  }
+  applyDeltaH(deltaY: number, shape: Shape) {
+    shape.wInner += deltaY;
+    shape.wOuter += deltaY;
+  }  
 }
 
