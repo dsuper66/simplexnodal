@@ -61,12 +61,12 @@ export class ShapeService {
         hOuter: this.branchLength
       })
     }
-    //GEN
+    //GEN & LOAD
     else if (type == 'gen' || type == 'load') {      
       let h = this.genLength;
       let w = this.genWidth;
       let x = this.busInitX + this.busLength/2 - w/2;
-      let y = this.busInitY - h;
+      let y = (this.busInitY * (1 + this.getCount('bus'))) - h;
       var path1: string;
       var path2: string;
       if (type == 'gen') {
