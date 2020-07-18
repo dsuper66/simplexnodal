@@ -68,8 +68,8 @@ export class NetworkBuilderViewComponent implements OnInit {
     if (this.lastPoint) {
 
       //Start direction
-      let xThreshold = 15;
-      let yThreshold = 10;
+      let xThreshold = 5;
+      let yThreshold = 5;
       let deltaFromStartX = Math.abs(mousePoint.x - this.firstPoint.x);
       let deltaFromStartY = Math.abs(mousePoint.y - this.firstPoint.y);
       if (!this.directionDone) {
@@ -85,6 +85,9 @@ export class NetworkBuilderViewComponent implements OnInit {
             this.selectedShape.doMove = false;
           }
           this.directionDone = true;
+        }
+        else {
+          return
         }
       }
 
