@@ -46,6 +46,7 @@ export class NetworkBuilderViewComponent implements OnInit {
         //If this is already selected then a tap (starting -> stopped)
         //will unselect... for a new selection we want to "keepDrawing"
         if (this.selectedShape != thisShape) {
+          console.log("new select");
           this.drawingState = "keepDrawing";
           this.selectedShape = thisShape;
         }
