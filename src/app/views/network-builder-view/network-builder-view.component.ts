@@ -22,7 +22,8 @@ export class NetworkBuilderViewComponent implements OnInit {
   directionDone = false;
   //For knowing whether to draw or unselect
   drawingState = "stopped";
-  startTime = Date.now();
+  touchTime = Date.now();
+  mouseTime = Date.now();
 
   //Add Element
   addElement(type: string) {
@@ -50,7 +51,6 @@ export class NetworkBuilderViewComponent implements OnInit {
           console.log("new select");
           this.drawingState = "keepDrawing";
           this.selectedShape = thisShape;
-          this.startTime = Date.now();
         }
 
 
@@ -74,11 +74,14 @@ export class NetworkBuilderViewComponent implements OnInit {
     }
   }
   startDrawingMouse(evt: MouseEvent) {
-    console.log("startingMouse");
-    this.startDrawingChecks(evt.offsetX, evt.offsetY)
+    console.log("startingMouse" + Date.now().toString);
+    if ((Date.now() - this.touchTime) > 500) {
+      this.startDrawingChecks(evt.offsetX, evt.offsetY)
+    }
   }
   startDrawingTouch(evt: TouchEvent) {
-    console.log("startingTouch");
+    console.log("startingTouch" + Date.now().toString);
+    this.touchTime = Date.now()
     this.startDrawingChecks(evt.touches[0].pageX, evt.touches[0].pageY)
   }
 
@@ -165,10 +168,8 @@ export class NetworkBuilderViewComponent implements OnInit {
   stopDrawing() {
     console.log("stop drawing");
 
-    console.log(Date.now() - this.startTime);
     //If there was no drawing, just start=>stop then unselect
     //(timer to avoid mouse/touch overlap)
-    //if (this.drawingState == "starting" && (Date.now()-this.startTime) > 500) {
     if (this.drawingState == "starting")  {
       console.log("unselect");
       this.selectedShape = null;
