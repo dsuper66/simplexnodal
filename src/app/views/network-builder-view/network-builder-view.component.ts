@@ -16,7 +16,7 @@ export class NetworkBuilderViewComponent implements OnInit {
 
   shapesToDraw: Shape[] = [];
   selectedShape: Shape;
-  lastPoint: Point; //For calculating delta as move progresses  
+  lastDrawingPoint: Point; //For calculating delta as move progresses  
   //For checks at start of move
   firstPoint: Point;
   directionDone = false;
@@ -42,7 +42,7 @@ export class NetworkBuilderViewComponent implements OnInit {
 
         this.selectedShape = thisShape;
         this.firstPoint = { x: x, y: y };
-        this.lastPoint = this.firstPoint;
+        this.lastDrawingPoint = this.firstPoint;
         console.log("inside");
         foundShape = true;
         this.directionDone = false;
@@ -51,7 +51,7 @@ export class NetworkBuilderViewComponent implements OnInit {
     }
     //Not in any shape, reset select
     if (!foundShape) {
-      this.lastPoint = null;
+      this.lastDrawingPoint = null;
       this.selectedShape = null;
       this.shapesToDraw = this.shapeService.getShapes();
     }
@@ -65,55 +65,71 @@ export class NetworkBuilderViewComponent implements OnInit {
   }
 
   keepDrawing(mousePoint: Point) {
-    if (this.lastPoint) {
+    //If we have a last drawing point...
+    if (this.lastDrawingPoint) {
 
-      //Start direction
-      let xThreshold = 5;
-      let yThreshold = 5;
-      let deltaFromStartX = Math.abs(mousePoint.x - this.firstPoint.x);
-      let deltaFromStartY = Math.abs(mousePoint.y - this.firstPoint.y);
-      if (!this.directionDone) {
-        if (deltaFromStartX > xThreshold || deltaFromStartY > yThreshold) {
-          if (deltaFromStartY > yThreshold) {
-            console.log("Up Down");
-            this.selectedShape.doMove = true;
+      //Start direction for bus or branch determines if resize or move
+      if (this.selectedShape.type == 'bus' || this.selectedShape.type == 'branch') {
+        if (!this.directionDone) {
+          let xThreshold = 5;
+          let yThreshold = 5;
+          let deltaFromStartX = Math.abs(mousePoint.x - this.firstPoint.x);
+          let deltaFromStartY = Math.abs(mousePoint.y - this.firstPoint.y);
+          //Branch is resize if movement is up-down, bus is resize if movement is left-right
+          if (deltaFromStartX > xThreshold || deltaFromStartY > yThreshold) {
             this.selectedShape.doResize = false;
+            if (deltaFromStartY > yThreshold && this.selectedShape.type == 'branch') {
+              console.log("Up Down");
+              this.selectedShape.doResize = true;
+            }
+            else if (deltaFromStartX > xThreshold && this.selectedShape.type == 'bus') {
+              console.log("Left Right");
+              this.selectedShape.doResize = true;
+            }
+            this.directionDone = true;
+          }
+          else { //don't move or resize until we know which
+            return
+          }
+        }
+      }
+
+      //Adjust... resize or move
+      let deltaX = mousePoint.x - this.lastDrawingPoint.x;
+      let deltaY = mousePoint.y - this.lastDrawingPoint.y;
+
+      //Resize (bus or branch)
+      if (this.selectedShape.doResize) {
+        if (this.selectedShape.type == 'bus') {
+          let atRHS = (mousePoint.x > this.selectedShape.xInner + this.selectedShape.wInner / 2);
+          if (atRHS) {
+            this.shapeService.applyDeltaW(deltaX, this.selectedShape);
           }
           else {
-            console.log("Left Right");
-            this.selectedShape.doResize = true;
-            this.selectedShape.doMove = false;
+            this.shapeService.applyDeltaX(deltaX, this.selectedShape);
+            this.shapeService.applyDeltaW(-deltaX, this.selectedShape);
           }
-          this.directionDone = true;
         }
-        else {
-          return
-        }
+        else if (this.selectedShape.type == 'branch') {
+          let atBottom = (mousePoint.y > this.selectedShape.yInner + this.selectedShape.hInner / 2);
+          if (atBottom) {
+            this.shapeService.applyDeltaH(deltaY, this.selectedShape);
+          }
+          else {
+            this.shapeService.applyDeltaY(deltaY, this.selectedShape);
+            this.shapeService.applyDeltaH(-deltaY, this.selectedShape);
+          }
+        }        
       }
-
-      //Adjust
-      let deltaX = mousePoint.x - this.lastPoint.x;
-      let deltaY = mousePoint.y - this.lastPoint.y;
-
-      if (this.selectedShape.type == 'bus' && this.selectedShape.doResize) {
-        //Resize
-        let atRHS = (mousePoint.x > this.selectedShape.xInner + this.selectedShape.wInner / 2);
-        if (atRHS) {
-          this.shapeService.applyDeltaW(deltaX, this.selectedShape);
-        }
-        else {
-          this.shapeService.applyDeltaX(deltaX, this.selectedShape);
-          this.shapeService.applyDeltaW(-deltaX, this.selectedShape);
-        }
-      }
-      else { //move
+      //Move
+      else {
         this.selectedShape.xInner += deltaX;
         this.selectedShape.yInner += deltaY;
         this.selectedShape.xOuter += deltaX;
         this.selectedShape.yOuter += deltaY;
       }
 
-      this.lastPoint = mousePoint;
+      this.lastDrawingPoint = mousePoint;
     }
   }
   keepDrawingMouse(evt: MouseEvent) {
@@ -128,7 +144,7 @@ export class NetworkBuilderViewComponent implements OnInit {
   stopDrawing() {
     console.log("stop drawing");
     //this.selectedShape = null;
-    this.lastPoint = null;
+    this.lastDrawingPoint = null;
     this.directionDone = false;
   }
   stopDrawingMouse() {

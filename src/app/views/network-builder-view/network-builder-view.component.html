@@ -29,7 +29,7 @@
         [attr.y]="shape.yInner" 
         [attr.width]="shape.wInner"
         [attr.height]="shape.hInner"
-        [attr.rx]="8" /> 
+        [attr.rx]="shape.type=='bus'?8:4" /> 
     </svg>
 
     <!--Gen or Load-->

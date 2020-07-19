@@ -10,6 +10,5 @@ export class Shape {
     hOuter?:number;
     path1?:string;
     path2?:string; 
-    doMove? = false;
     doResize? = false;
 }

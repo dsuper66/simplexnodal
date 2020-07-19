@@ -125,8 +125,8 @@ export class ShapeService {
     shape.wOuter += deltaX;
   }
   applyDeltaH(deltaY: number, shape: Shape) {
-    shape.wInner += deltaY;
-    shape.wOuter += deltaY;
+    shape.hInner += deltaY;
+    shape.hOuter += deltaY;
   }  
 }
 
