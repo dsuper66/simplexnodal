@@ -72,10 +72,11 @@ export class NetworkBuilderViewComponent implements OnInit {
     }
   }
   startDrawingMouse(evt: MouseEvent) {
+    console.log("startingMouse");
     this.startDrawingChecks(evt.offsetX, evt.offsetY)
   }
   startDrawingTouch(evt: TouchEvent) {
-    console.log("start touch");
+    console.log("startingTouch");
     this.startDrawingChecks(evt.touches[0].pageX, evt.touches[0].pageY)
   }
 
