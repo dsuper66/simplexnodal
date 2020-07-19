@@ -150,6 +150,7 @@ export class NetworkBuilderViewComponent implements OnInit {
     }
   }
   keepDrawingMouse(evt: MouseEvent) {
+    console.log("keep drawing mouse");
     this.keepDrawing({ x: evt.offsetX, y: evt.offsetY });
   }
   keepDrawingTouch(evt: TouchEvent) {
