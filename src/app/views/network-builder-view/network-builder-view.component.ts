@@ -168,7 +168,7 @@ export class NetworkBuilderViewComponent implements OnInit {
     console.log(Date.now()-this.startTime);
     //If there was no drawing, just start=>stop then unselect
     //(timer to avoid mouse/touch overlap)
-    if (this.drawingState == "starting" && (Date.now()-this.startTime) > 10) {
+    if (this.drawingState == "starting" && (Date.now()-this.startTime) > 500) {
       console.log("unselect");
       this.selectedShape = null;
       this.shapesToDraw = this.shapeService.getShapes();
