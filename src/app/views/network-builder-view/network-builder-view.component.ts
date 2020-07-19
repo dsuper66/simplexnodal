@@ -28,9 +28,10 @@ export class NetworkBuilderViewComponent implements OnInit {
     this.shapesToDraw = this.shapeService.getShapes();
   }
 
-  //Adjust
-  //Check if inside a shape then this is adjusting
-  checkIfPointIsInAnyShape(x: number, y: number) {
+  //Start drawing... checks
+  startDrawingChecks(x: number, y: number) {
+    //If inside a shape then this is adjusting
+    console.log("start drawing checks");
     var foundShape = false;
     for (let thisShape of this.shapesToDraw) {
       //console.log (thisShape.x);
@@ -48,23 +49,27 @@ export class NetworkBuilderViewComponent implements OnInit {
         this.directionDone = false;
         break;
       }
+      this.firstPoint = { x: x, y: y };
+      this.lastDrawingPoint = this.firstPoint;
     }
     //Not in any shape, reset select
     if (!foundShape) {
+      /*
       this.lastDrawingPoint = null;
       this.selectedShape = null;
-      this.shapesToDraw = this.shapeService.getShapes();
+      this.shapesToDraw = this.shapeService.getShapes(); */
     }
   }
   startDrawingMouse(evt: MouseEvent) {
-    this.checkIfPointIsInAnyShape(evt.offsetX, evt.offsetY)
+    this.startDrawingChecks(evt.offsetX, evt.offsetY)
   }
   startDrawingTouch(evt: TouchEvent) {
     console.log("start touch");
-    this.checkIfPointIsInAnyShape(evt.touches[0].pageX, evt.touches[0].pageY)
+    this.startDrawingChecks(evt.touches[0].pageX, evt.touches[0].pageY)
   }
 
-  keepDrawing(mousePoint: Point) {
+  keepDrawing(drawingPoint: Point) {
+    console.log("keep drawing")
     //If we have a last drawing point...
     if (this.lastDrawingPoint) {
 
@@ -73,8 +78,8 @@ export class NetworkBuilderViewComponent implements OnInit {
         if (!this.directionDone) {
           let xThreshold = 5;
           let yThreshold = 5;
-          let deltaFromStartX = Math.abs(mousePoint.x - this.firstPoint.x);
-          let deltaFromStartY = Math.abs(mousePoint.y - this.firstPoint.y);
+          let deltaFromStartX = Math.abs(drawingPoint.x - this.firstPoint.x);
+          let deltaFromStartY = Math.abs(drawingPoint.y - this.firstPoint.y);
           //Branch is resize if movement is up-down, bus is resize if movement is left-right
           if (deltaFromStartX > xThreshold || deltaFromStartY > yThreshold) {
             this.selectedShape.doResize = false;
@@ -95,13 +100,13 @@ export class NetworkBuilderViewComponent implements OnInit {
       }
 
       //Adjust... resize or move
-      let deltaX = mousePoint.x - this.lastDrawingPoint.x;
-      let deltaY = mousePoint.y - this.lastDrawingPoint.y;
+      let deltaX = drawingPoint.x - this.lastDrawingPoint.x;
+      let deltaY = drawingPoint.y - this.lastDrawingPoint.y;
 
       //Resize (bus or branch)
       if (this.selectedShape.doResize) {
         if (this.selectedShape.type == 'bus') {
-          let atRHS = (mousePoint.x > this.selectedShape.xInner + this.selectedShape.wInner / 2);
+          let atRHS = (drawingPoint.x > this.selectedShape.xInner + this.selectedShape.wInner / 2);
           if (atRHS) {
             this.shapeService.applyDeltaW(deltaX, this.selectedShape);
           }
@@ -111,7 +116,7 @@ export class NetworkBuilderViewComponent implements OnInit {
           }
         }
         else if (this.selectedShape.type == 'branch') {
-          let atBottom = (mousePoint.y > this.selectedShape.yInner + this.selectedShape.hInner / 2);
+          let atBottom = (drawingPoint.y > this.selectedShape.yInner + this.selectedShape.hInner / 2);
           if (atBottom) {
             this.shapeService.applyDeltaH(deltaY, this.selectedShape);
           }
@@ -129,7 +134,7 @@ export class NetworkBuilderViewComponent implements OnInit {
         this.selectedShape.yOuter += deltaY;
       }
 
-      this.lastDrawingPoint = mousePoint;
+      this.lastDrawingPoint = drawingPoint;
     }
   }
   keepDrawingMouse(evt: MouseEvent) {
@@ -143,7 +148,6 @@ export class NetworkBuilderViewComponent implements OnInit {
 
   stopDrawing() {
     console.log("stop drawing");
-    //this.selectedShape = null;
     this.lastDrawingPoint = null;
     this.directionDone = false;
   }
