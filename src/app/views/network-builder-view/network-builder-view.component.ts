@@ -22,6 +22,7 @@ export class NetworkBuilderViewComponent implements OnInit {
   directionDone = false;
   //For knowing whether to draw or unselect
   drawingState = "stopped";
+  startTime = Date.now();
 
   //Add Element
   addElement(type: string) {
@@ -49,6 +50,7 @@ export class NetworkBuilderViewComponent implements OnInit {
           console.log("new select");
           this.drawingState = "keepDrawing";
           this.selectedShape = thisShape;
+          this.startTime = Date.now();
         }
 
 
@@ -161,14 +163,17 @@ export class NetworkBuilderViewComponent implements OnInit {
   }
 
   stopDrawing() {
+    console.log("stop drawing");
 
-    if (this.drawingState == "starting") {
+    console.log(Date.now()-this.startTime);
+    //If there was no drawing, just start=>stop then unselect
+    //(timer to avoid mouse/touch overlap)
+    if (this.drawingState == "starting" && (Date.now()-this.startTime) > 10) {
       console.log("unselect");
       this.selectedShape = null;
       this.shapesToDraw = this.shapeService.getShapes();
     }
     //stop any current adjustment (but stay selected)
-    console.log("stop drawing");
     this.drawingState = "stopped";
     this.lastDrawingPoint = null;
     this.directionDone = false;
