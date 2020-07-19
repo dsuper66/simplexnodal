@@ -20,6 +20,8 @@ export class NetworkBuilderViewComponent implements OnInit {
   //For checks at start of move
   firstPoint: Point;
   directionDone = false;
+  //For knowing whether to draw or unselect
+  drawingState = "stopped";
 
   //Add Element
   addElement(type: string) {
@@ -32,6 +34,7 @@ export class NetworkBuilderViewComponent implements OnInit {
   startDrawingChecks(x: number, y: number) {
     //If inside a shape then this is adjusting
     console.log("start drawing checks");
+    this.drawingState = "starting";
     var foundShape = false;
     for (let thisShape of this.shapesToDraw) {
       //console.log (thisShape.x);
@@ -39,19 +42,26 @@ export class NetworkBuilderViewComponent implements OnInit {
         && x <= thisShape.xOuter + thisShape.wOuter
         && y >= thisShape.yOuter
         && y <= thisShape.yOuter + thisShape.hOuter) {
-        //set a non-null createdShape to indicate we are adjusting
 
-        this.selectedShape = thisShape;
-        this.firstPoint = { x: x, y: y };
-        this.lastDrawingPoint = this.firstPoint;
+        //If this is already selected then a tap (starting -> stopped)
+        //will unselect... for a new selection we want to "keepDrawing"
+        if (this.selectedShape != thisShape) {
+          this.drawingState = "keepDrawing";
+          this.selectedShape = thisShape;
+        }
+
+
+        //this.firstPoint = { x: x, y: y };
+        //this.lastDrawingPoint = this.firstPoint;
         console.log("inside");
-        foundShape = true;
-        this.directionDone = false;
+        //foundShape = true;
+        //this.directionDone = false;
         break;
       }
-      this.firstPoint = { x: x, y: y };
-      this.lastDrawingPoint = this.firstPoint;
     }
+    this.directionDone = false;
+    this.firstPoint = { x: x, y: y };
+    this.lastDrawingPoint = this.firstPoint;
     //Not in any shape, reset select
     if (!foundShape) {
       /*
@@ -69,7 +79,8 @@ export class NetworkBuilderViewComponent implements OnInit {
   }
 
   keepDrawing(drawingPoint: Point) {
-    console.log("keep drawing")
+    console.log("keep drawing");
+    this.drawingState = "keepDrawing";
     //If we have a last drawing point...
     if (this.lastDrawingPoint) {
 
@@ -124,7 +135,7 @@ export class NetworkBuilderViewComponent implements OnInit {
             this.shapeService.applyDeltaY(deltaY, this.selectedShape);
             this.shapeService.applyDeltaH(-deltaY, this.selectedShape);
           }
-        }        
+        }
       }
       //Move
       else {
@@ -147,9 +158,19 @@ export class NetworkBuilderViewComponent implements OnInit {
   }
 
   stopDrawing() {
+
+    if (this.drawingState == "starting") {
+      console.log("unselect");
+      this.selectedShape = null;
+      this.shapesToDraw = this.shapeService.getShapes();
+    }
+    //stop any current adjustment (but stay selected)
     console.log("stop drawing");
+    this.drawingState = "stopped";
     this.lastDrawingPoint = null;
     this.directionDone = false;
+
+
   }
   stopDrawingMouse() {
     this.stopDrawing();
