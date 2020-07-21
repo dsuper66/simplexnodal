@@ -100,7 +100,7 @@ export class ShapeService {
         hOuter: h,
         path1,
         path2
-      })
+      });
     }
   }
 

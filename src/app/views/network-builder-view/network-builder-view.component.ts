@@ -62,16 +62,18 @@ export class NetworkBuilderViewComponent implements OnInit {
         break;
       }
     }
-    this.directionDone = false;
+    //direction determines move or resize... reset it now at start 
+    //and figure it out with keepDrawing
+    this.directionDone = false; 
     this.firstPoint = { x: x, y: y };
     this.lastDrawingPoint = this.firstPoint;
     //Not in any shape, reset select
+    /*
     if (!foundShape) {
-      /*
       this.lastDrawingPoint = null;
       this.selectedShape = null;
-      this.shapesToDraw = this.shapeService.getShapes(); */
-    }
+      this.shapesToDraw = this.shapeService.getShapes(); 
+    }*/
   }
   startDrawingMouse(evt: MouseEvent) {
     console.log("startingMouse" + Date.now().toString);
@@ -89,7 +91,7 @@ export class NetworkBuilderViewComponent implements OnInit {
     console.log("keep drawing");
     this.drawingState = "keepDrawing";
     //If we have a last drawing point...
-    if (this.lastDrawingPoint) {
+    if (this.lastDrawingPoint && this.selectedShape) {
 
       //Start direction for bus or branch determines if resize or move
       if (this.selectedShape.type == 'bus' || this.selectedShape.type == 'branch') {
