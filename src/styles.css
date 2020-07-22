@@ -4,7 +4,6 @@
     width: 90vw;
     border:solid;
     border-color:lightgrey;
-    overflow: none;  
     margin: 0px;
     /*stop scroll within canvas but keep zoom*/
     overflow: hidden;
