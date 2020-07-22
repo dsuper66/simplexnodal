@@ -1,16 +1,4 @@
 
-
-
-.shapeCanvas{
-    height:75vh;
-    width: 90vw;
-    border:solid;
-    border-color:lightgrey;
-    overflow: none;  
-    margin: 0px;
-    /*stop scroll within canvas but keep zoom*/
-    overflow: hidden;
-}
  
 .selected{
   fill:none;
@@ -34,6 +22,7 @@
   margin: 0px;
 }
 
+/* not used... included in button */
 .noselect {
   -webkit-touch-callout: none; /* iOS Safari */
     -webkit-user-select: none; /* Safari */
@@ -42,7 +31,6 @@
         -ms-user-select: none; /* Internet Explorer/Edge */
             user-select: none; /* Non-prefixed version, currently
                                   supported by Chrome, Edge, Opera and Firefox */
-
 }
 
 .button-row {
@@ -52,4 +40,13 @@
   .button-row button {
     display: table-cell;
     margin: 6px;
+
+    /* no select */
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Old versions of Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome, Edge, Opera and Firefox */
   }

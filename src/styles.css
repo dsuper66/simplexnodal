@@ -1,1 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
+.shapeCanvas{
+    height:75vh;
+    width: 90vw;
+    border:solid;
+    border-color:lightgrey;
+    overflow: none;  
+    margin: 0px;
+    /*stop scroll within canvas but keep zoom*/
+    overflow: hidden;
+}

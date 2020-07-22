@@ -1,7 +1,4 @@
 
-
-
-
 <svg class="shapeCanvas"
   (mousedown)="startDrawingMouse($event)" 
   (mousemove)="keepDrawingMouse($event)"
@@ -68,14 +65,15 @@
 
 <section>
   <div class="button-row">
-    <button class="noselect" mat-raised-button (click)="addElement('bus')">Bus</button>
-    <button class="noselect" mat-raised-button (click)="addElement('branch')">Branch</button>
-    <button class="noselect" mat-raised-button (click)="addElement('gen')">Gen</button>
-    <button class="noselect" mat-raised-button (click)="addElement('load')">Load</button>
-    <a routerLink="/data-entry-component" routerLinkActive="active">Edit</a>
+    <button (click)="addElement('bus')">Bus</button>
+    <button (click)="addElement('branch')">Branch</button>
+    <button (click)="addElement('gen')">Gen</button>
+    <button (click)="addElement('load')">Load</button>
+    
+    <button routerLink="/data-entry-component">Edit</button>
   </div>
 </section>
 
-<router-outlet></router-outlet>
+
 
 

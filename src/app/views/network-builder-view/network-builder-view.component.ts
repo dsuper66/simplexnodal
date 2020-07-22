@@ -3,6 +3,7 @@ import { Shape } from '../shape';
 import { Point } from '../point';
 import { ShapeService } from '../shape.service';
 
+
 @Component({
   selector: 'app-network-builder-view',
   templateUrl: './network-builder-view.component.html',

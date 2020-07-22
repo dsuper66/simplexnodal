@@ -13,8 +13,7 @@ import { AppRoutingModule } from '../app-routing.module';
     DataEntryViewComponent
   ],
   imports: [
-    CommonModule,
-    AppRoutingModule
+    CommonModule,AppRoutingModule
   ]
 })
 export class ViewsModule { }
