@@ -13,6 +13,8 @@ export class NetworkBuilderViewComponent implements OnInit {
 
   constructor(private shapeService: ShapeService) { }
   ngOnInit(): void {
+    //If we navigate away then when we come back this will populate the display
+    this.shapesToDraw = this.shapeService.getShapes();
   }
 
   shapesToDraw: Shape[] = [];
@@ -23,8 +25,9 @@ export class NetworkBuilderViewComponent implements OnInit {
   directionDone = false;
   //For knowing whether to draw or unselect
   drawingState = "stopped";
+  //Touch can lead to touch evt followed by mouse... use timer to stop mouse
   touchTime = Date.now();
-  mouseTime = Date.now();
+  //mouseTime = Date.now();
 
   //Add Element
   addElement(type: string) {
