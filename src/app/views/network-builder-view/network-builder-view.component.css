@@ -22,8 +22,8 @@
   margin: 0px;
 }
 
-/* not used... included in button */
-.noselect {
+
+button {
   -webkit-touch-callout: none; /* iOS Safari */
     -webkit-user-select: none; /* Safari */
      -khtml-user-select: none; /* Konqueror HTML */
@@ -40,6 +40,7 @@
   .button-row button {
     display: table-cell;
     margin: 6px;
+    border-color: black;
 
     /* no select */
     -webkit-touch-callout: none; /* iOS Safari */
