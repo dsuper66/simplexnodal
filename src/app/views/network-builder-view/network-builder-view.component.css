@@ -25,6 +25,7 @@
 
 button {
   margin: 2px;
+  flex-shrink: unset;
   -webkit-touch-callout: none; /* iOS Safari */
     -webkit-user-select: none; /* Safari */
      -khtml-user-select: none; /* Konqueror HTML */
