@@ -1,5 +1,6 @@
 
-<svg class="shapeCanvas"
+<section class="shapeCanvas">
+<svg 
   (mousedown)="startDrawingMouse($event)" 
   (mousemove)="keepDrawingMouse($event)"
   (mouseup)="stopDrawingMouse()"
@@ -63,15 +64,13 @@
 
 </svg>
 
-<section>
-  <!-- <div class="button-row"> -->
+
     <button (click)="addElement('bus')">Bus</button>
     <button (click)="addElement('branch')">Branch</button>
     <button (click)="addElement('gen')">Gen</button>
     <button (click)="addElement('load')">Load</button>
     
     <button routerLink="/data-entry-component">Edit</button>
-  <!-- </div> -->
 </section>
 
 
