@@ -1,4 +1,12 @@
 
+<section>
+  <button (click)="addElement('bus')">Bus</button>
+  <button (click)="addElement('branch')">Branch</button>
+  <button (click)="addElement('gen')">Gen</button>
+  <button (click)="addElement('load')">Load</button>
+  
+  <button routerLink="/data-entry-component">Edit</button>
+</section>
 <section class="shapeCanvas">
 <svg 
   (mousedown)="startDrawingMouse($event)" 
@@ -64,14 +72,7 @@
 
 </svg>
 </section>
-<section>
-    <button (click)="addElement('bus')">Bus</button>
-    <button (click)="addElement('branch')">Branch</button>
-    <button (click)="addElement('gen')">Gen</button>
-    <button (click)="addElement('load')">Load</button>
-    
-    <button routerLink="/data-entry-component">Edit</button>
-</section>
+
 
 
 
