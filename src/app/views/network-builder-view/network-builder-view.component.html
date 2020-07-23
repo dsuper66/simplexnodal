@@ -1,7 +1,5 @@
 
-<h1>TEST</h1>
-<section class="shapeCanvas">
-<svg 
+<svg class="shapeCanvas"
   (mousedown)="startDrawingMouse($event)" 
   (mousemove)="keepDrawingMouse($event)"
   (mouseup)="stopDrawingMouse()"
@@ -64,7 +62,6 @@
   </ng-container>
 
 </svg>
-</section>
 
 <section>
   <button (click)="addElement('bus')">Bus</button>
